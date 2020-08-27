@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://root:root@cluster0.wt52t.mongodb.net/playground?retryWrites=true", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log('Connected to MongoDB...'))
-    .catch(err => console.error('Could not connect to MongoDB...'))
+
 
 let courseSchema = new mongoose.Schema({
     name: String,
@@ -35,7 +30,7 @@ async function createCourse() {
 async function getCourse() {
     const courses = await Course
         .find({
-            author: /^Mosh/,
+            author: /^Wright/,
             isPublished: true
         })
         .limit(10)

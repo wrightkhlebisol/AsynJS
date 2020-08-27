@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 
 
 let courseSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     author: String,
     tags: [String],
     date: {
@@ -17,14 +20,18 @@ const Course = mongoose.model('Course', courseSchema);
 
 async function createCourse() {
     const course = new Course({
-        name: "PHP",
+        // name: "PHP",
         author: "Wright",
         tags: ['OOP', 'API'],
         isPublished: true
     });
 
-    const result = await course.save();
-    console.log(result)
+    try {
+        const result = await course.save();
+        console.log(result)
+    } catch (ex) {
+        console.log(ex.message)
+    }
 }
 
 async function getCourse() {
@@ -41,4 +48,4 @@ async function getCourse() {
     console.log(courses);
 }
 
-getCourse();
+createCourse();

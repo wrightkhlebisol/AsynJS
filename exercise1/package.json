@@ -1,5 +1,5 @@
 {
-  "name": "async-demo",
+  "name": "exercise1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/b64": "^5.0.0",
-    "node-fetch": "^2.6.0"
+    "mongoose": "^5.10.0"
   }
 }

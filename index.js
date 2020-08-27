@@ -1,9 +1,17 @@
 console.log("Before");
-getUser(1)
-    .then(users => getRepositories(users.gitHubUsername))
-    .then(repos => getCommits(repos.repos))
-    .then(commits => console.log(commits))
-    .catch(err => console.log("Error: ", err.message));
+// getUser(1)
+//     .then(users => getRepositories(users.gitHubUsername))
+//     .then(repos => getCommits(repos.repos))
+//     .then(commits => console.log(commits))
+//     .catch(err => console.log("Error: ", err.message));
+
+async function getGithubProfile() {
+    const user = await getUser(1);
+    const repos = await getRepositories(user);
+    const commits = await getCommits(repos);
+}
+
+getGithubProfile();
 
 console.log("After");
 
@@ -22,6 +30,7 @@ function getUser(id) {
 
 function getRepositories(username) {
     return new Promise((resolve, reject) => {
+        console.log("getting repositories")
         setTimeout(() => {
             resolve({
                 username,
@@ -34,6 +43,7 @@ function getRepositories(username) {
 
 function getCommits(repo) {
     return new Promise((resolve, reject) => {
+        console.log('getting commits')
         setTimeout(() => {
             resolve(["com1", "com2", "com3", "com4"]);
         }, 3000);

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const config = require('config')
 
-mongoose.connect("mongodb+srv://root:root@cluster0.wt52t.mongodb.net/playground?retryWrites=true", {
+mongoose.connect(config.get("demo_mongodb_conn_string"), {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })

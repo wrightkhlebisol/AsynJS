@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "vidly_jwtPrivateKey",
+    "mongodb_url": "vidly_mongodb_url"
+}

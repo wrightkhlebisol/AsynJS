@@ -1,9 +1,6 @@
 const fetch = require("node-fetch");
 const B64 = require("@hapi/b64");
 
-const MON_API_KEY = "MK_PROD_8FCULBZ669";
-const MON_API_SEC = "CH5SWQRSMH2F3QUMUP835N83FXP96AQH";
-const MON_CONTRACT_CODE = "496441784668";
 
 const API_HOST = "https://api.monnify.com/api/v1";
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;

@@ -1,5 +1,20 @@
 const mongoose = require('mongoose');
 
+mongoose.connect("mongodb+srv://root:root@cluster0.wt52t.mongodb.net/playground?retryWrites=true", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('Connected to MongoDB...'))
+    .catch(err => console.error('Could not connect to MongoDB...'))
+
+let authorSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        unique: true,
+    },
+    bio: String,
+    website: String
+})
 
 
 let courseSchema = new mongoose.Schema({
@@ -7,23 +22,34 @@ let courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    author: String,
-    tags: [String],
-    date: {
-        type: Date,
-        default: Date.now
-    },
-    isPublished: Boolean
+    author: authorSchema
+    // author: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Author'
+    // }
 });
 
+const Author = mongoose.model('Author', authorSchema);
 const Course = mongoose.model('Course', courseSchema);
 
-async function createCourse() {
+async function createAuthor() {
+    let author = new Author({
+        name: "New wright",
+        bio: "Tell them story",
+        website: "new.com"
+    })
+    try {
+        let _author = await author.save();
+        console.log(author)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function createCourse(name, author) {
     const course = new Course({
-        // name: "PHP",
-        author: "Wright",
-        tags: ['OOP', 'API'],
-        isPublished: true
+        name,
+        author
     });
 
     try {
@@ -34,18 +60,16 @@ async function createCourse() {
     }
 }
 
-async function getCourse() {
+async function listCourses() {
     const courses = await Course
-        .find({
-            author: /^Wright/,
-            isPublished: true
-        })
-        .limit(10)
-        .sort({
-            name: 1
-        })
-        .countDocuments()
+        .find()
+        .populate('author')
+        .select('name author');
     console.log(courses);
 }
 
-createCourse();
+// createCourse('Node Course', new Author({
+//     name: 'Mosh'
+// }));
+// createAuthor()
+listCourses()

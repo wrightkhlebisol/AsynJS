@@ -30,6 +30,6 @@ function validateUser(user) {
     return Joi.validate(user, schema)
 }
 
-let User = mongoose.model('users', userSchema);
-exports.User = User;
+let Users = mongoose.model('users', userSchema);
+exports.Users = Users;
 exports.validate = validateUser;

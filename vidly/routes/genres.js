@@ -4,6 +4,7 @@ let {
 } = require('../models/genres')
 
 router.get("/", async (req, res) => {
+
     try {
         let genres = await Genres.find();
         if (genres) {

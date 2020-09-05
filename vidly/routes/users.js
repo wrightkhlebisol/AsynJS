@@ -13,11 +13,17 @@ router.post("/", async (req, res) => {
 
         if (users) return res.status(400).send("User already registered.");
         let user = new Users(lod.pick(req.body, ["name", "email", "password"]));
+
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
+
+        let token = user.generateAuthToken();
+
         await user.save();
-        res.status(200).send(lod.pick(user, ["_id", "name", "email"]));
+
+        res.header('X-Auth-Token', token).send(lod.pick(user, ["_id", "name", "email"]));
     } catch (err) {
+        console.log(err)
         res.status(400).send(err.message);
     }
 });

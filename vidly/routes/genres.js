@@ -1,3 +1,5 @@
+let auth = require('../middleware/auth')
+let admin = require('../middleware/admin')
 let router = require('express')();
 let {
     Genres
@@ -27,7 +29,7 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
     let genre = new Genres({
         name: req.body.name
     });
@@ -55,7 +57,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
     try {
         let genre = await Genres.findByIdAndDelete(req.params.id, {
             name: req.body.name

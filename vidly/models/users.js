@@ -19,7 +19,8 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 10
-    }
+    },
+    isAdmin: Boolean
 });
 
 function validateUser(user) {
@@ -34,7 +35,8 @@ function validateUser(user) {
 
 userSchema.methods.generateAuthToken = function () {
     return jwt.sign({
-        _id: this._id
+        _id: this._id,
+        isAdmin: this.isAdmin
     }, config.get("jwtPrivateKey"));
 }
 
